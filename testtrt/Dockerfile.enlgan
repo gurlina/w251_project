@@ -1,0 +1,51 @@
+# Run this container in privileged mode to be able to use CUDA on GPU
+FROM w251/tensorrt:dev-tx2-4.3_b132
+
+RUN apt update
+RUN apt install -y python3-pip wget
+RUN pip3 install -U pip
+
+# Install PyTorch 1.4
+RUN wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+RUN apt remove -y python3-numpy
+RUN pip3 install numpy torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+
+# Install torchvision 0.5.0
+RUN apt-get install -y libjpeg-dev zlib1g-dev libopenblas-dev
+WORKDIR /tmp
+RUN git clone -b v0.5.0 https://github.com/pytorch/vision torchvision
+WORKDIR /tmp/torchvision
+RUN python3 setup.py install
+RUN rm -fr /tmp/torchvision
+
+WORKDIR /
+
+# Setting the default to python3
+RUN cd /usr/bin && \
+    rm python && \
+    ln -s python3 python
+
+# Install scipy as a required dependency for visdom
+RUN apt-get install python3-scipy -y
+
+# Installing required libraries.
+RUN pip3 uninstall Pillow -y && \
+    pip3 install "Pillow==6.1" && \
+    pip3 install tqdm && \
+    pip3 install cython && \
+    pip3 install visdom && \
+    pip3 install dominate
+
+
+# install torch2trt
+RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt.git
+WORKDIR /torch2trt
+RUN python3 setup.py install
+
+WORKDIR /
+RUN mkdir EnlightenGAN
+
+RUN mkdir test_dataset && \
+    mkdir test_dataset/testA && \
+    mkdir test_dataset/testB
+

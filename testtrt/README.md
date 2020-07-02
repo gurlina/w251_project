@@ -1,22 +1,22 @@
-# Update EnlightenGAN files  
+## Update EnlightenGAN files  
 
 * Overwrite `networks.py`, `single_model.py`, `unit_network.py` in `models` folder using the file versions in this directory
 * Overwrite `predict.py` script in the root directory of the repo
 * Create `checkponts/enlightening` folder in the project's root directory and place the trained PyTorch model there (e.g., `200_net_G_A.pth`)
 
-# Build docker image
+## Build docker image
 
 ```
 sudo docker build -t enlgan -f Dockerfile.enlgan .
 ```
 
-# Start docker container in the interactive mode
+## Start docker container in the interactive mode
 ```
 cd <root project directory>
 sudo docker run --privileged --rm -v "$PWD":/EnlightenGAN --memory-swap --memory-swappiness 100 -ti enlgan bash
 ```  
 
-# Copy test images and modified `torch2trt` files (`cat.py`) to the docker container (using a different terminal window)
+## Copy test images and modified `torch2trt` files ([cat.py](https://github.com/gurlina/w251_project/blob/master/testtrt/cat.py)) to the docker container (using a different terminal window)
 
 ```
 # get the container id
@@ -27,7 +27,7 @@ sudo docker cp image_2.png <container_id>:/test_dataset/testB/
 sudo docker cp cat.py  <container_id>:/torch2trt/torch2trt/converters/
 ```  
 
-# Inside the container
+## Inside the container
 
 ```
 # register the modified version of the concatination converter
@@ -39,7 +39,7 @@ cd /EnlightenGAN
 python scripts/script.py --predict
 ```
 
-# Notes 
+## Notes 
 
 * The docker container uses [torch2trt ](https://github.com/NVIDIA-AI-IOT/torch2trt) PyTorch to TensorRT converter.
 
@@ -55,7 +55,7 @@ python scripts/script.py --predict
 
 * `torch2trt` provides an experimental plugin for `interpolate` operation but any attempts to use it resulted in errors.  
 
-* Similarly, setting `use_onnx` flag to `True` while calling the converter resulted in failure (see `torch2trt(...)` function call in `single_model.py`)
+* Similarly, setting `use_onnx` flag to `True` while calling the converter resulted in failure (see `torch2trt(...)` function call in [single_model.py](https://github.com/gurlina/w251_project/blob/master/testtrt/single_model.py))
 
 * The prediction script curently terminates in errors:  
   ```

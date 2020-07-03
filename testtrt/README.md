@@ -13,7 +13,7 @@ sudo docker build -t enlgan -f Dockerfile.enlgan .
 ## Start docker container in the interactive mode
 ```
 cd <root project directory>
-sudo docker run --privileged --rm -v "$PWD":/EnlightenGAN --memory-swap --memory-swappiness 100 -ti enlgan bash
+sudo docker run --privileged --rm  -v "$PWD":/EnlightenGAN --memory-swap -1 --memory-swappiness 100 -ti enlgan bash
 ```  
 
 ## Copy test images and modified `torch2trt` files ([cat.py](https://github.com/gurlina/w251_project/blob/master/testtrt/cat.py)) to the docker container (using a different terminal window)

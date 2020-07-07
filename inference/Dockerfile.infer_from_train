@@ -1,0 +1,71 @@
+# Run this container in privileged mode to be able to use CUDA on GPU
+FROM w251/pytorch:jup-tx2-4.3_b132
+
+RUN sudo apt-get update && apt-get install -y curl
+
+RUN pip3 install --upgrade pip
+
+RUN pip3 install --upgrade efficientnet-pytorch
+
+# Setting the default to python3
+RUN cd /usr/bin && \
+    rm python && \
+    ln -s python3 python
+
+# Installing required libraries. Note the versions in requirement.txt are not supported
+RUN pip3 install torch && \
+    pip3 install visdom && \
+    pip3 install dominate && \
+    pip3 uninstall Pillow -y && \
+    pip3 install "pillow<7" && \
+    pip3 install torch torchvision
+
+# Installing opencv2 for video processing
+ARG URL=http://169.44.201.108:7002/jetpacks/4.3
+RUN apt-get update && apt install -y git pkg-config wget build-essential cmake unzip
+
+RUN curl $URL/libopencv_3.3.1-2-g31ccdfe11_arm64.deb  -so libopencv_3.3.1-2-g31ccdfe11_arm64.deb
+RUN curl $URL/libopencv-dev_3.3.1-2-g31ccdfe11_arm64.deb -so libopencv-dev_3.3.1-2-g31ccdfe11_arm64.deb
+RUN curl $URL/libopencv-python_3.3.1-2-g31ccdfe11_arm64.deb -so libopencv-python_3.3.1-2-g31ccdfe11_arm64.deb
+
+RUN apt remove -y libopencv-calib3d-dev libopencv-core-dev 
+
+RUN apt install -y  libtbb-dev libavcodec-dev libavformat-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk2.0-dev
+RUN apt install -y libswscale-dev libv4l-dev
+RUN dpkg -i *.deb
+
+RUN apt install -y libcanberra-gtk-module libcanberra-gtk3-module libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+    
+# Loading in repos
+# RUN git clone https://github.com/lukemelas/EfficientNet-PyTorch might not need this one
+# RUN git clone https://github.com/TAMU-VITA/EnlightenGAN.git modifications made to predict.py, load in via add commands
+ADD EnlightenGAN /notebooks/EnlightenGAN
+
+# Prep file for pretrained model
+RUN cd EnlightenGAN && \
+    mkdir checkpoints && \
+    mkdir checkpoints/enlightening 
+
+# Load pretrained model (downloaded to local, copy into docker)
+COPY models/updated_pytorch/200_net_G_A.pth /notebooks/EnlightenGAN/checkpoints/enlightening/
+
+# Creating folders for test dataset
+RUN cd /notebooks && \
+    mkdir test_dataset && \
+    mkdir test_dataset/testA && \
+    mkdir test_dataset/testB
+
+# Installing vim
+RUN apt-get update && \
+    apt install -y vim
+
+# Adding in test images 
+# COPY low00006.png /notebooks/test_dataset/testA/
+# COPY low00036.png /notebooks/test_dataset/testA/
+# COPY lowneha.png /notebooks/test_dataset/testA/
+COPY seed_file.png /notebooks/test_dataset/testB/
+COPY test.avi /notebooks/EnlightenGAN/
+COPY video_predict.py /notebooks/EnlightenGAN/
+COPY test_script.py /notebooks/EnlightenGAN
+
+

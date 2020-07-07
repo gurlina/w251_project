@@ -4,7 +4,7 @@ Note: when running thes .py scripts in dockere, please move these scripts to the
 
 
 Steps to reproduce / deploy on Jetson: 
-1. create docker image `docker build -t infer_from_train =f Dockerfile-infer_from_train .`
+1. create docker image `docker build -t infer_from_train -f Dockerfile.infer_from_train .`
 2. type `xhost +` on the terminal locally
 3. clone enlightenGAN repo locally 
 4. copy test_script.py and video_predict.py into /EnlightenGAN/ on your docker

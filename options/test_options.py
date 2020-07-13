@@ -10,4 +10,7 @@ class TestOptions(BaseOptions):
         self.parser.add_argument('--phase', type=str, default='test', help='train, val, test, etc')
         self.parser.add_argument('--which_epoch', type=str, default='latest', help='which epoch to load? set to latest to use latest cached model')
         self.parser.add_argument('--how_many', type=int, default=50, help='how many test images to run')
+        #LG - added video file option
+        self.parser.add_argument('--from_video', type=int, default=1, help='whether to read input test data from video')
+        self.parser.add_argument('--is_recording', type=int, default=0, help='whether to generate inference video recording')
         self.isTrain = False

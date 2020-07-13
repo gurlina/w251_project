@@ -41,6 +41,8 @@ elif opt.predict:
 	for i in range(1):
 	        os.system("python predict.py \
 	        	--dataroot ../test_dataset \
+                        --from_video 1 \
+                        --is_recording 0 \
 	        	--name enlightening \
 	        	--model single \
 	        	--which_direction AtoB \

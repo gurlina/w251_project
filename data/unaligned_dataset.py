@@ -3,7 +3,7 @@ from torch import nn
 import os.path
 import torchvision.transforms as transforms
 from data.base_dataset import BaseDataset, get_transform
-from data.image_folder import make_dataset, store_dataset
+from data.image_folder import make_dataset, store_dataset, get_frames 
 import random
 from PIL import Image
 import PIL
@@ -62,7 +62,12 @@ class UnalignedDataset(BaseDataset):
 
         # self.A_paths = make_dataset(self.dir_A)
         # self.B_paths = make_dataset(self.dir_B)
-        self.A_imgs, self.A_paths = store_dataset(self.dir_A)
+
+        # LG
+        if opt.from_video:
+            self.A_imgs, self.A_paths = get_frames(self.dir_A)
+        else:
+            self.A_imgs, self.A_paths = store_dataset(self.dir_A)
         self.B_imgs, self.B_paths = store_dataset(self.dir_B)
 
         # self.A_paths = sorted(self.A_paths)

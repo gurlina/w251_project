@@ -229,7 +229,7 @@ class Decoder(nn.Module):
         self.model += [ResBlocks(n_res, dim, res_norm, activ, pad_type=pad_type)]
         # upsampling blocks
         for i in range(n_upsample):
-            self.model += [nn.Upsample(scale_factor=2),
+            self.model += [nn.Upsample(scale_factor=2, align_corners=True),
                            Conv2dBlock(dim, dim // 2, 5, 1, 2, norm='ln', activation=activ, pad_type=pad_type)]
             dim //= 2
         # use reflection padding in the last conv layer

@@ -11,14 +11,64 @@ from PIL import Image
 import os
 import os.path
 
+#LG
+import cv2
+
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
     '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
 ]
 
+#LG 
+VIDEO_EXTENSIONS = [
+    '.mp4', '.MP4', '.avi', '.AVI',
+]
 
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+
+
+#LG
+def is_video_file(filename):
+    return any(filename.endswith(extension) for extension in VIDEO_EXTENSIONS)
+
+#LG
+def get_video_file_name(dir):
+    vfn_path = ''
+    assert os.path.isdir(dir), '%s is not a valid directory' % dir
+
+    for root, _, fnames in sorted(os.walk(dir)):
+        for fname in fnames:
+            if is_video_file(fname):
+                vfn_path = os.path.join(root, fname)
+                break
+
+    return vfn_path
+
+#LG
+def get_frames(image_dir):
+    frames = []
+    all_path = []
+    filename = get_video_file_name(image_dir)
+
+    v_cap = cv2.VideoCapture(filename)
+    v_len = int(v_cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    #v_cap = cv2.VideoCapture(0)
+    #v_len = 300
+    print("Number of frames in video: ", v_len)
+
+    for fn in range(v_len):
+        success, frame = v_cap.read()
+        if success is False:
+            print("Failed to retrieve frame: ", fn)
+            continue
+        
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        path = os.path.join(image_dir, "frame"+str(fn)+".jpg")
+        frames.append(frame)
+        all_path.append(path)
+    v_cap.release()
+    return frames, all_path
 
 
 def make_dataset(dir):

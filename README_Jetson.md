@@ -7,14 +7,14 @@ The application reads frames from a pre-recorded video, runs predictions on them
 * Create a root folder for the project's test data (e.g., `/home/nvidia/W251/data/LightGAN`).  
 * Inside the root data folder, create two subfolders named `testA` and `testB`.  
 * Copy a seed image to `testB` folder (could be any image of any size).  
-* Copy a video file on which you'd like to perform interest to `testB` (valid file extensions are '.avi' or '.mp4').  
+* Copy a video file on which you'd like to perform inference to `testA` (valid file extensions are '.avi' or '.mp4').  
 
 
 **The following commands should be run from the root project directory (`w251_project`).**  
 
 ## Prepare trained model  
 
-* Create `checkponts/enlightening` folder in the project's root directory and copy a trained EnlightenGAN model there (e.g., `200_net_G_A.pth`).  
+* Create `checkponts/enlightening` folder and copy a trained EnlightenGAN model there (e.g., `200_net_G_A.pth`).  
 
 ## Build docker image  
 

@@ -116,12 +116,14 @@ class SingleModel(BaseModel):
             # self.netG_B.eval()
             # LG
             print("Converting model to TensorRT") 
-            #print("DEBUG: self.input_img size: ", self.input_img.size())
-            #print("DEBUG: self.input_A_gray size: ", self.input_A_gray.size())
+            print("DEBUG: self.input_img size: ", self.input_img.size())
+            print("DEBUG: self.input_A_gray size: ", self.input_A_gray.size())
             #test_input = self.Tensor(1, 4, size, size).cuda()
             #if isinstance(self.netG_A, torch.nn.DataParallel):
             #    self.netG_A = self.netG_A.module
-            self.netG_A = torch2trt(self.netG_A, [self.input_img.cuda(), self.input_A_gray.cuda()], use_onnx=False)
+            x1 = torch.rand(self.input_img.size()).cuda()
+            x2 = torch.rand(self.input_A_gray.size()).cuda()
+            self.netG_A = torch2trt(self.netG_A, [x1, x2], use_onnx=False)
              
         print('-----------------------------------------------')
 

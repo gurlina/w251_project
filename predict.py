@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 from options.test_options import TestOptions
 from data.data_loader import CreateDataLoader
@@ -24,11 +25,13 @@ model = create_model(opt)
 
 # process input video in endless loop
 while(True):
-
+    
+    # start the timer for FPS measurement
+    start = time.time()
     for i, data in enumerate(dataset):
         model.set_input(data)
         visuals = model.predict()
-         
+        
         # the iterator alternates between real and fake images
         for label, image_numpy in visuals.items():
             # save a copy of the real frame
@@ -52,6 +55,10 @@ while(True):
                     else:
                         videoWriter.write(record_frame) 
     
+    # estimate real-time FPS
+    fps_real = (i+1) / (time.time() - start)
+    print("Average FPS = %0.1f"%fps_real)
+
     # save recording only once
     if recording and not is_recorded: 
         print("Recording saved in", output_file)       

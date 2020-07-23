@@ -1,12 +1,83 @@
-# EnlightenGAN
+# IllumiGAN: low-light video enhancement system  
 
-[EnlightenGAN: Deep Light Enhancement without Paired Supervision](https://arxiv.org/abs/1906.06972)
+### **W251-Summer 2020: Final Project**  
+### *Team: [Lina Gurevich](mailto:lgurevich@berkeley.edu), [William Casey King](mailto:caseyking@berkeley.edu), [Neha Kumar](mailto:neha.kumar@berkeley.edu), [Sony Wicaksono](mailto:aji.wicaksono@berkeley.edu)*
+
+![](/assets/earth_540_gan.gif)
+## Introduction and Project Motivation  
+
+Images and videos captured in low-light conditions suffer from low contrast, poor visibility, and noise contamination. Those issues challenge both human visual perception that prefers high-visibility images, and numerous intelligent systems relying on computer vision algorithms.  
+
+Concretely, analyzing security camera footage that was recorded during nighttime or in a poorly lit area for the purposes of crime scene reconstruction could greatly benefit from enhancements that present the video in a better light.  
+Another potential application is a real-time enhanced rendering of the environment during nighttime driving. A dashboard camera with such functionality can both aid drivers better navigate in poor visibility conditions and generate better quality input signals for automatic processing in a self-driving vehicle.  
+
+This would be a challenging task for traditional contrast enhancement algorithms since nighttime images usually contain both high-intensity and very low-intensity regions that often cause detrimental artifacts in the enhanced image. In the last decade, we have seen a paradigm shift in image reconstruction methods changing from analytic to iterative and now to machine learning based methods. These data-driven algorithms either learn to transfer raw sensory inputs directly to output images or serve as a post processing step for reducing image noise and removing artifacts. Generative Adversarial Networks (GANs), one of the recent breakthroughs in the field of deep learning, have gained attention in both academia and industry due to their versatility in inter-domain image translation and opened a wide range of possibilities in the field of computer vision.
+
+The goal of this project is to assess the feasibility and build a proof-of-concept prototype of a GAN-based low-light video enhancement system that can be deployed on an edge device. 
+
+## Background   
+
+State-of-the-art image restoration and enhancement deep learning algorithms heavily rely on either synthesized or captured corrupted and clean image pairs to train the network. In practice, it is very difficult to simultaneously acquire both corrupted and ground truth images of the same visual scene (e.g., low-light and normal-light image pairs at the same time). Synthesizing corrupted images from clean images could sometimes help, but such synthesized results are usually not realistic enough, leading to various artifacts when the trained model is applied to real-world low-light images. Specifically for the low-light enhancement problem, there may be no unique or well-defined high-light ground truth given a low-light image. An alternative architecture that utilizes unpaired image datasets ([CycleGAN](https://arxiv.org/pdf/1703.10593.pdf)) usually takes a very long time to train and might not be suitable for generating high-fidelity details. 
+
+To mitigate these shortcomings, we propose a solution based on the [EnlightenGAN Architecture](https://arxiv.org/abs/1906.06972) whose main features are summarized below:
+
+* Lightweight one-path GAN for unsupervised image-to-image translation that learns a mapping between low light and normal light image spaces without relying on exactly paired training images  
+
+* Avoids overfitting any specific data generation protocol or imaging device, which leads to notably improved real-world generalization  
+
+* Utilizes a global-local discriminator structure that handles spatially-varying light conditions in the input image  
+
+* Employs self-regularization by using the feature preserving loss and attention mechanism that utilize information directly extracted from the input  
+
+* Easily adaptable to enhancing low-light images from different domains  
+
+* Consistently outperforms state-of-the-art algorithms across different qualitative and quantitative image quality metrics 
+
+
+![architecture](/assets/arch.png)  
+**EnlightenGAN Network Architecture Diagram**. EnlightenGAN adopts an attention-guided U-Net as the generator and uses the dual discriminator to direct the global and local information. A single, image-level discriminator often fails on spatially-varying light images; to enhance local regions adaptively in addition to improving the light globally, the network uses a novel global-local discriminator structure. A local discriminator randomly crops local patches from both output and real normal light images, and learns to distinguish whether they are real (from real images) or fake (from enhanced outputs). The Attention Map is generated by retrieving the illumination channel, $I$, from the input RGB image, normalizing it to [0,1], and then using $(1 − I)$ (element-wise difference) as a self-regularized attention map.
+
+
+## System Architecture  
+
+![](/assets/cloud_edge_diagram.png)
+
+
+## Model Training & Evaluation  
+
+## Deployment on Jetson TX2  
+
+![](/assets/screen-recording-outdoor.gif)
+
+## Results & Discussion  
+
+
+### Outdoor (artificial light)  
+
+![](/assets/taxi-768-inference.gif)  
+
+### Outdoor (low-light)  
+
+![](/assets/chicago-768-inference.gif)  
+
+
+
+### Indoor (low-light)  
+
+![](/assets/mysterious-hallway-inference.gif)  ![](./assets/hallway_daylight.jpg)
+
+## Conclusion & Future Developments
+
+
+## References
+
+https://www.onlineconverter.com/mp4-to-gif
 
 ### Representitive Results
 ![representive_results](/assets/show_3.png)
 
 ### Overal Architecture
-![architecture](/assets/arch.png)
+
 
 ## Environment Preparing
 ```

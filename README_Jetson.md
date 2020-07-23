@@ -1,8 +1,4 @@
-# LightGAN Camera
-
 ## Running predictions on Jetson using pre-recorded video as a source  
-
-![](earth_540_gan.gif)
 
 The application reads frames from a pre-recorded video, runs predictions on them, and displays both input and output frames side by side in a loop.  
 

@@ -71,14 +71,17 @@ The following two sections provide detailed description of the Cloud and Edge co
 
 In the original implementation of EnlightenGAN, the inference is performed by running predictions on a batch of images that are copied to a pre-defined folder. The inference results are stored on disk, similarly using a pre-configured location.  
 
-To repurpose the EnlightenGAN model for video processing, we modified the DataLoader ([image_folder.py](/data/image_folder.py), [unaligned_dataset.py](/data/unaligned_dataset.py)) so that it can read frames directly from a video file and feed them to the trained model for inference. We also changed the [predict.py](predict.py) script that now runs inference on each frame supplied by the DataLoader and displays both the input and ouput frames side-by-side as a video stream. 
+To repurpose the EnlightenGAN model for video processing, we modified the DataLoader ([image_folder.py](/data/image_folder.py), [unaligned_dataset.py](/data/unaligned_dataset.py)) so that it can read frames directly from a video file and feed them to the trained model for inference. We also changed the [predict.py](predict.py) script that now runs inference on each frame supplied by the DataLoader and displays both the input and ouput frames side-by-side as a video stream. The new script also supports saving of the two video streams as an .mp4 file.
 
 The detailed description of how to build and run the docker container can be found in [README_Jetson.md](README_Jetson.md), while the animation below demonstrates a sample run of the IllumiGAN application on Jetson TX2:
 
 ![](/assets/screen-recording-outdoor.gif)
 
-Here we can see the print-out of the network configuration within the container shell on the left and the data folder containing an input low-light video in the bottom right. The window in the top right corner shows the input and output video streams displayed side-by-side.
+Here we can see the print-out of the network configuration within the container shell on the left and the data folder containing an input low-light video in the bottom right. The window in the top right corner shows the input and output video streams displayed side-by-side. 
 
+We observed that without any optimization the best inference speed we could achieve on low-resolution videos (e.g., 352x288) was about 5 FPS. 
+
+To improve the performance, we tried to convert our trained model to TensorRT using NVIDIA's open-source library [Torch2TRT](https://github.com/NVIDIA-AI-IOT/torch2trt), which provides a high-level Python interface for PyTorch-to-TensorRT conversion. Unfortunately, while we were able to convert some state-of-the-art models (i.e., ResNet) to TensorRT successfully, any attempts to apply the library to the EnlightenGAN model resulted in failure. Further details about our experimentation with `torch2trt` converter can be found [here](testtrt).
 
 ## Results & Discussion  
 

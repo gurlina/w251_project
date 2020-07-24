@@ -126,12 +126,14 @@ The following two samples demonstrate the model's performance under very challen
 
 The first sample is a nighttime scene in Chicago  where the only sources of illumination are distant building lights and occasional blinking bike lights from passing bikers.   
 While none of the objects or people can be easily detected in the input video (the bikers' presence is only evident by moving shadows), the output video clearly shows the buildings, the fence, the red-and-white construction pole, as well as the two groups of bikers moving in opposite directions. We can even discern the color of their clothes and the shapes of backpacks they're wearing.    
+
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output
 ![](/assets/chicago-768-inference.gif)  
 
 <br/><br/>
 The next video shows our teammate's backyard captured at nighttime. Similar to the Chicago scene above, the original video looks completely dark with some occasional bright spots due to ambient lighting.  
-The output video, on the other hand, managed to faithfully recreate the flowers, grass and leaves, as well as the stone structures in the yard. The model sometimes struggles, however, with enhancement of extremely dark areas.
+The output video, on the other hand, managed to faithfully recreate the flowers, grass and leaves, as well as the stone structures in the yard. The model sometimes struggles, however, with enhancement of extremely dark areas.  
+
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output  
 ![](/assets/outdoor-infer.gif)
 
@@ -141,6 +143,7 @@ Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp
 The last example was intended as a stress test to see how well our model can handle the input with no evident external lighting.  
 The original video was shot inside our teammate's house during nighttime. It even has a short story line: an intruder is lurking inside the house, looking for a valuable painting, and feeling comfortable since no security camera can detect her presence due to complete darkness. That turned out to be a false hope: our IllumiGAN application was not only able to detect the intruder's presence but was also able to recreate her clothes (and, as a bonus, has revealed the masterpiece painting itself hanging on the wall).  
 While the recreated video is very noisy, from the daylight reference image we can infer that the model was able to recontruct the hallway layout along with the content of the painting.   
+
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Daylight Reference  
 ![](/assets/mysterious-hallway-inference.gif)![](./assets/hallway_daylight.jpg)
 

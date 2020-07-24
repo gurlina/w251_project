@@ -50,18 +50,35 @@ where:
 
 * <img src="https://render.githubusercontent.com/render/math?math=L^{Local}_{G}"> is equivalent to <img src="https://render.githubusercontent.com/render/math?math=L^{Global}_{G}"> but applied to randomly selected local patches cropped from input and output images
 
-The paper's authors have also released their [source code](https://github.com/TAMU-VITA/EnlightenGAN) which we used as a code base for our project repository.
+The paper's authors have also released their [PyTorch model implemetation](https://github.com/TAMU-VITA/EnlightenGAN) which we used as a code base for our project repository.
 
 ## System Architecture  
 
-![](/assets/cloud_edge_diagram.png)
+A high-level system architecture diagram is shown on the figure below:
+
+![](/assets/cloud_edge_diagram.png)  
+
+First, the EnlightenGAN model is trained on IBM Cloud using 2 P100 GPU servers. The trained model is then downloaded to Jetson TX2 module where it is used to perform frame-by-frame inference on pre-recorded video files. 
+
+The following two sections provide detailed description of the Cloud and Edge components.
 
 
-## Model Training & Evaluation  
+### **Cloud: Model Training & Evaluation**  
 
-## Deployment on Jetson TX2  
+{TODO: Casey and Sony, please add your description here}
+
+### **Edge: Deployment on Jetson TX2**  
+
+In the original implementation of EnlightenGAN, the inference is performed by running predictions on a batch of images that are copied to a pre-defined folder. The inference results are stored on disk, similarly using a pre-configured location.  
+
+To repurpose the EnlightenGAN model for video processing, we modified the DataLoader ([image_folder.py](/data/image_folder.py), [unaligned_dataset.py](/data/unaligned_dataset.py)) so that it can read frames directly from a video file and feed them to the trained model for inference. We also changed the [predict.py](predict.py) script that now runs inference on each frame supplied by the DataLoader and displays both the input and ouput frames side-by-side as a video stream. 
+
+The detailed description of how to build and run the docker container can be found in [README_Jetson.md](README_Jetson.md), while the animation below demonstrates a sample run of the IllumiGAN application on Jetson TX2:
 
 ![](/assets/screen-recording-outdoor.gif)
+
+Here we can see the print-out of the network configuration within the container shell on the left and the data folder containing an input low-light video in the bottom right. The window in the top right corner shows the input and output video streams displayed side-by-side.
+
 
 ## Results & Discussion  
 
@@ -78,7 +95,7 @@ The paper's authors have also released their [source code](https://github.com/TA
 
 ### Indoor (low-light)  
 
-![](/assets/mysterious-hallway-inference.gif)  ![](./assets/hallway_daylight.jpg)
+![](/assets/mysterious-hallway-inference.gif)![](./assets/hallway_daylight.jpg)
 
 ## Conclusion & Future Developments
 

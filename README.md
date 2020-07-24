@@ -1,4 +1,4 @@
-# IllumiGAN: low-light video enhancement system  
+# IllumiGAN: a low-light video enhancement system  
 
 ### **W251-Summer 2020: Final Project**  
 ### *Team: [Lina Gurevich](mailto:lgurevich@berkeley.edu), [William Casey King](mailto:caseyking@berkeley.edu), [Neha Kumar](mailto:neha.kumar@berkeley.edu), [Sony Wicaksono](mailto:aji.wicaksono@berkeley.edu)*
@@ -39,7 +39,7 @@ To mitigate these shortcomings, we propose a solution based on the [EnlightenGAN
 
 The EnightenGAN's loss function consists of four parts:
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large \textit{Loss} =  L^{Global}_{SFP}%2BL^{Local}_{SFP}%2BL^{Global}_{G}%2BL^{Local}_{G}">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<img src="https://render.githubusercontent.com/render/math?math=\Large \textit{Loss} =  L^{Global}_{SFP}%2BL^{Local}_{SFP}%2BL^{Global}_{G}%2BL^{Local}_{G}">
 
 where:  
 
@@ -85,19 +85,35 @@ To improve the performance, we tried to convert our trained model to TensorRT us
 
 ## Results & Discussion  
 
+To test the performance of our model in terms of the output quality, we ran inference on a set of videos with various degrees of illumination. We used two sources of input data:  
 
-### Outdoor (artificial light)  
+* Royalty-free dataset of [City At Night Stock Video Footage](https://www.videezy.com/free-video/city-at-night)  
 
+* Homemade recordings captured with iPhone 6 and converted to .avi format using a [free online converter](https://www.zamzar.com/convert/mp4-to-avi/). 
+
+These recordings were uploaded to Jetson TX2 and used as an input to our IllimiGAN application.  
+
+Below are a few samples demonstrating how the model performed under different lighting conditions.
+
+
+### **Outdoor (artificial light)** 
+
+This video is a representative example of an urban night scene, with both brightly-lit and dark areas present in the field of view. Such scenes are particularly challenging for traditional image enhancement algorithms since they struggle to brighten the dark areas without introducing disortions to the originally well-lit regions.  
+As we can see from the side-b  
+
+Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Output
 ![](/assets/taxi-768-inference.gif)  
 
-### Outdoor (low-light)  
+### **Outdoor (low-light)**  
 
+Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Output
 ![](/assets/chicago-768-inference.gif)  
 
 
 
-### Indoor (low-light)  
+### **Indoor (low-light)**  
 
+Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Output &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Daylight Reference
 ![](/assets/mysterious-hallway-inference.gif)![](./assets/hallway_daylight.jpg)
 
 ## Conclusion & Future Developments

@@ -70,7 +70,9 @@ The following two sections provide detailed description of the Cloud and Edge co
 
 System setup, training/test data, visdom screenshots, training and fine-tuning process, quality evaluation metrics description, quantitative/qualitative scores comparison table for different hyper-parameters. 
 
-Describe any changes you made to the original model's code. To keep our main README high-level, you can provide links to other documents that deal with the setup and changes details (similar to what I've done for Jetson).
+Describe any changes you made to the original model's code. To keep our main README high-level, you can provide links to other documents that deal with the setup and changes details (similar to what I've done for Jetson). 
+
+Please check in your images into the [assets](assets) directory and embed them in this document using the following syntax: `![](/assets/image_filename)`.
 
 Make sure to provide links to the training/test datasets. For example,  
 

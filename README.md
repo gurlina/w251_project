@@ -99,15 +99,21 @@ Below are a few samples demonstrating how the model performed under different li
 ### **Outdoor (artificial light)** 
 
 This video is a representative example of an urban night scene, with both brightly-lit and dark areas present in the field of view. Such scenes are particularly challenging for traditional image enhancement algorithms since they struggle to brighten the dark areas without introducing disortions to the originally well-lit regions.  
-As we can see from the side-b  
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output  
 ![](/assets/taxi-768-inference.gif)  
+
+As we can see from the side-by-side videos, the input video has a brightly-lit spot at its center while the rest of the objects and the people in front of the building fade into darkness. On the other hand, the video on the right shows as a uniformly-lit scene where colors and details are restored with high fidelity.
 
 ### **Outdoor (low-light)**  
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output
 ![](/assets/chicago-768-inference.gif)  
+
+
+
+Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output  
+![](/assets/outdoor-infer.gif)
 
 
 

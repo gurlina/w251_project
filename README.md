@@ -1,4 +1,4 @@
-<img src="/assets/Illumigan_light.png" width=300 align=left>
+<img src="/assets/Illumigan_light.png" width=275 align=left>
 
 # A low-light video enhancement system  
 

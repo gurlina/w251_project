@@ -6,7 +6,7 @@
 ![](/assets/earth_540_gan.gif)
 ## Introduction and Project Motivation  
 
-Images and videos captured in low-light conditions suffer from low contrast, poor visibility, and noise contamination. Those issues challenge both human visual perception that prefers high-visibility images, and numerous intelligent systems relying on computer vision algorithms.  
+Images and videos captured in low-light conditions suffer from low contrast, poor visibility, and noise contamination. Those issues challenge both human visual perception that prefers high-contrast images, and numerous intelligent systems relying on computer vision algorithms.  
 
 Concretely, analyzing security camera footage that was recorded during nighttime or in a poorly lit area for the purposes of crime scene reconstruction could greatly benefit from enhancements that present the video in a better light.  
 Another potential application is a real-time enhanced rendering of the environment during nighttime driving. A dashboard camera with such functionality can both aid drivers better navigate in poor visibility conditions and generate better quality input signals for automatic processing in a self-driving vehicle.  
@@ -21,7 +21,7 @@ State-of-the-art image restoration and enhancement deep learning algorithms heav
 
 To mitigate these shortcomings, we propose a solution based on the [EnlightenGAN Architecture](https://arxiv.org/abs/1906.06972) whose main features are summarized below:
 
-* Lightweight one-path GAN for unsupervised image-to-image translation that learns a mapping between low light and normal light image spaces without relying on exactly paired training images  
+* Lightweight one-path GAN for unsupervised image-to-image translation that learns a mapping between low light and normal light image spaces without relying on perfectly paired training images  
 
 * Avoids overfitting any specific data generation protocol or imaging device, which leads to notably improved real-world generalization  
 
@@ -86,7 +86,7 @@ Provide a link to the best trained model (shared Google dive?)
 
 In the original implementation of EnlightenGAN, the inference is performed by running predictions on a batch of images that are copied to a pre-defined folder. The inference results are stored on disk, similarly using a pre-configured location.  
 
-To repurpose the EnlightenGAN model for video processing, we modified the DataLoader ([image_folder.py](/data/image_folder.py), [unaligned_dataset.py](/data/unaligned_dataset.py)) so that it can read frames directly from a video file and feed them to the trained model for inference. We also changed the [predict.py](predict.py) script that now runs inference on each frame supplied by the DataLoader and displays both the input and ouput frames side-by-side as a video stream. The new script also supports saving of the two video streams as an .mp4 file.
+To repurpose the EnlightenGAN model for video processing, we modified the DataLoader ([image_folder.py](/data/image_folder.py), [unaligned_dataset.py](/data/unaligned_dataset.py)) so that it can read frames directly from a video file (.mp4 or .avi) and feed them to the trained model for inference. We also changed the [predict.py](predict.py) script that now runs inference on each frame supplied by the DataLoader and displays both the input and ouput frames side-by-side as a video stream. The new script also supports saving of the two video streams as an .mp4 file.
 
 The detailed description of how to build and run the docker container can be found in [README_Jetson.md](README_Jetson.md), while the animation below demonstrates a sample run of the IllumiGAN application on Jetson TX2:
 
@@ -124,7 +124,7 @@ As we can see from the side-by-side videos, the input video has a brightly-lit s
 
 The following two samples demonstrate the model's performance under very challenging conditions where the input scene is mostly dark with some occasional bright spots due to artificial lighting. 
 
-The first sample is a nighttime scene in Chicago  where the only sources of illumination are distant building lights and occasional blinking bike lights from passing bikers.   
+The first sample is a nighttime scene in Chicago where the only sources of illumination are distant building lights and occasional blinking bike lights from passing bikers.   
 While none of the objects or people can be easily detected in the input video (the bikers' presence is only evident by moving shadows), the output video clearly shows the buildings, the fence, the red-and-white construction pole, as well as the two groups of bikers moving in opposite directions. We can even discern the color of their clothes and the shapes of backpacks they're wearing.    
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output

@@ -59,6 +59,7 @@ The paper's authors have also released their [PyTorch model implemetation](https
 A high-level system architecture diagram is shown on the figure below:
 
 ![](/assets/cloud_edge_diagram.png)  
+Architecture Diagram Source: Jiang et al
 
 First, the EnlightenGAN model is trained on IBM Cloud using 2 P100 GPU servers. {TODO: Casey and Sony, please review and update if necessary}  
 The trained model is then downloaded to Jetson TX2 module where it is used to perform frame-by-frame inference on pre-recorded video files. 

@@ -1,5 +1,6 @@
-![logo](/assets/Illumigan_light.png)
-# IllumiGAN: a low-light video enhancement system  
+<img src="/assets/Illumigan_light.png" width=300 align=left>
+
+# A low-light video enhancement system  
 
 ### **W251-Summer 2020: Final Project**  
 ### *Team: [Lina Gurevich](mailto:lgurevich@berkeley.edu), [William Casey King](mailto:caseyking@berkeley.edu), [Neha Kumar](mailto:neha.kumar@berkeley.edu), [Sony Wicaksono](mailto:aji.wicaksono@berkeley.edu)*

@@ -60,12 +60,12 @@ The paper's authors have also released their [PyTorch model implemetation](https
 
 We used the EnlightenGAN framework as the baseline for the IllumiGAN offering. IllumiGAN's additions and contributions on top of EnlightenGAN are summarized below:
 
-**Training on IBM Cloud**
+**Training on IBM Cloud**  
 - Hyperparameter tuning of EnlightenGAN on the cloud to validate hyperparameters used for the pretrained model
 - Conducting a qualitative assessment of the outputs of the various runs while testing hyperparameters
 - Implemented a quantitative measure (FID score) to score output  
   
-**Inference on the Edge**
+**Inference on the Edge**  
 - Proof-of-concept deployment on an edge device (Jetson TX2)
 - Modification of EnlightenGAN data loader to consume a recorded video 
 - Creation of containerized video inference output and a recording application using openCV
@@ -174,13 +174,13 @@ Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp
 
 ## Conclusion & Future Developments  
 
-**Successes**
+**Successes**  
 The team was able to successfully validate results from the original EnlightenGAN paper. By experimenting with hyperparameters, and evaluating their output with a quantitative FID score, the team was able to objectively justify the hyperparameters used to train the model. Moreover, the team was successfully able to conduct inference on a recorded video input, generating a side-by-side input and output that successfully shows improved visibility, brightness and contrast.
 
-**Discussion**
+**Discussion**  
 There is a lack of an industry standard quantitative metric in the field to determine the quality of a GAN output. Many papers use qualitative assessments of the outputs, however as seen by a qualitative assessment on outputs from various versions of the trained model, there is a lot of variation in human judgement in selecting the most "realistic" looking output. While the FID scoring methodology utilized here confirms the hyperparameters used to create the EnlightenGAN authors' pretrained model, further consensus on metric selection in the field is desired.
 
-**Further Research**
+**Further Research**  
 In inference, IllumiGAN generates outputs at a rate of about 5 FPS. While the team attempted to use TensorRT to further optimize the model to further expedite inference, this was utlimately not achievable in the current set up. To enable real-time inference on a streaming input (rather than a recording as demonstrated in this work), successful implementation of TensorRT or equivalent is necessary.  
 
 Furthermore, training could always be further enhanced by additional in-domain training. For example, if IllumiGAN / EnlightenGAN were to be utilized to increase nighttime visibilty for driving, then images specifically from the road would be desirable to imnprove the model's performance in this application.

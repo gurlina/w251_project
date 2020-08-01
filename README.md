@@ -1,11 +1,11 @@
-<img src="/assets/Illumigan_light.png" width=275 align=left>
+<img src="./assets/Illumigan_light.png" width=275 align=left>
 
 # A low-light video enhancement system  
 
 ### **W251-Summer 2020: Final Project**  
 ### *Team: [Lina Gurevich](mailto:lgurevich@berkeley.edu), [William Casey King](mailto:caseyking@berkeley.edu), [Neha Kumar](mailto:neha.kumar@berkeley.edu), [Sony Wicaksono](mailto:aji.wicaksono@berkeley.edu)*
 
-![](/assets/earth_540_gan.gif)
+![](./assets/earth_540_gan.gif)
 ## Introduction and Project Motivation  
 
 Images and videos captured in low-light conditions suffer from low contrast, poor visibility, and noise contamination. Those issues challenge both human visual perception that prefers high-contrast images, and numerous intelligent systems relying on computer vision algorithms.  
@@ -15,11 +15,11 @@ Another potential application is a real-time enhanced rendering of the environme
 
 This would be a challenging task for traditional contrast enhancement algorithms since nighttime images usually contain both high-intensity and very low-intensity regions that often cause detrimental artifacts in the enhanced image. In the last decade, we have seen a paradigm shift in image reconstruction methods changing from analytic to iterative and now to machine learning based methods. These data-driven algorithms either learn to transfer raw sensory inputs directly to output images or serve as a post processing step for reducing image noise and removing artifacts. Generative Adversarial Networks (GANs), one of the recent breakthroughs in the field of deep learning, have gained attention in both academia and industry due to their versatility in inter-domain image translation and opened a wide range of possibilities in the field of computer vision.
 
-The goal of this project is to assess the feasibility and build a proof-of-concept prototype of a GAN-based low-light video enhancement system that can be deployed on an edge device. 
+The goal of this project is to assess the feasibility and build a proof-of-concept prototype of a GAN-based low-light video enhancement system that can be deployed on an edge device.
 
 ## Background   
 
-State-of-the-art image restoration and enhancement deep learning algorithms heavily rely on either synthesized or captured corrupted and clean image pairs to train the network. In practice, it is very difficult to simultaneously acquire both corrupted and ground truth images of the same visual scene (e.g., low-light and normal-light image pairs at the same time). Synthesizing corrupted images from clean images can sometimes help, but such synthesized results are usually not realistic enough, leading to various artifacts when the trained model is applied to real-world low-light images. Specifically for the low-light enhancement problem, there may be no unique or well-defined high-light ground truth given a low-light image. An alternative architecture that utilizes unpaired image datasets ([CycleGAN](https://arxiv.org/pdf/1703.10593.pdf)) usually takes a very long time to train and might not be suitable for generating high-fidelity details. 
+State-of-the-art image restoration and enhancement deep learning algorithms heavily rely on either synthesized or captured corrupted and clean image pairs to train the network. In practice, it is very difficult to simultaneously acquire both corrupted and ground truth images of the same visual scene (e.g., low-light and normal-light image pairs at the same time). Synthesizing corrupted images from clean images can sometimes help, but such synthesized results are usually not realistic enough, leading to various artifacts when the trained model is applied to real-world low-light images. Specifically for the low-light enhancement problem, there may be no unique or well-defined high-light ground truth given a low-light image. An alternative architecture that utilizes unpaired image datasets ([CycleGAN](https://arxiv.org/pdf/1703.10593.pdf)) usually takes a very long time to train and might not be suitable for generating high-fidelity details.
 
 To mitigate these shortcomings, we propose a solution based on the [EnlightenGAN Architecture](https://arxiv.org/abs/1906.06972) whose main features are summarized below:
 
@@ -33,10 +33,10 @@ To mitigate these shortcomings, we propose a solution based on the [EnlightenGAN
 
 * Easily adaptable to enhancing low-light images from different domains  
 
-* Consistently outperforms state-of-the-art algorithms across different qualitative and quantitative image quality metrics 
+* Consistently outperforms state-of-the-art algorithms across different qualitative and quantitative image quality metrics
 
 
-![architecture](/assets/arch.png)  
+![architecture](./assets/arch.png)  
 Architecture Diagram Source: Jiang et al
 
 **EnlightenGAN Network Architecture Diagram**. EnlightenGAN adopts an attention-guided U-Net as the generator and uses the dual discriminator to direct the global and local information. A single, image-level discriminator often fails on spatially-varying light images; to enhance local regions adaptively in addition to improving the light globally, the network uses a novel global-local discriminator structure. A local discriminator randomly crops local patches from both output and real normal light images, and learns to distinguish whether they are real (from real images) or fake (from enhanced outputs). The Attention Map is generated by retrieving the illumination channel, *I*, from the input RGB image, normalizing it to [0,1], and then using *(1 − I)* (element-wise difference) as a self-regularized attention map.
@@ -64,10 +64,10 @@ We used the EnlightenGAN framework as the baseline for the IllumiGAN offering. I
 - Hyperparameter tuning of EnlightenGAN on the cloud to validate hyperparameters used for the pretrained model
 - Conducting a qualitative assessment of the outputs of the various runs while testing hyperparameters
 - Implemented a quantitative measure (FID score) to score output  
-  
+
 **Inference on the Edge**  
 - Proof-of-concept deployment on an edge device (Jetson TX2)
-- Modification of EnlightenGAN data loader to consume a recorded video 
+- Modification of EnlightenGAN data loader to consume a recorded video
 - Creation of containerized video inference output and a recording application using openCV
 
 ## System Architecture  
@@ -77,33 +77,60 @@ A high-level system architecture diagram is shown on the figure below:
 ![](/assets/cloud_edge_diagram.png)  
 
 First, the EnlightenGAN model is trained on IBM Cloud using 2 P100 GPU servers. {TODO: Casey and Sony, please review and update if necessary}  
-The trained model is then downloaded to Jetson TX2 module where it is used to perform frame-by-frame inference on pre-recorded video files. 
+The trained model is then downloaded to Jetson TX2 module where it is used to perform frame-by-frame inference on pre-recorded video files.
 
 The following two sections provide detailed description of the Cloud and Edge components.
 
 
 ### **Cloud: Model Training & Evaluation**  
 
-To establish a baseline, we ran the original configuration of EnlightenGAN capturing the loss function on a visdom server. The loss function in GAN attempts to capture the distance between the distribution of the data generated by the GAN and the distribution of the real data. A GAN has loss function-one for generator training and one for discriminator training. Loss is not necessarily the best measure of model excellence as the two loss functions must be integrated to reflect a distance measure between probability distributions. Our Visdom server displays the two loss functions. To determine the quality of their model, the authors of the original EnlightenGAN paper rely, instead, on human evaluation to determine optimum hyperparameters. We deemed human evaluation an unreliable metric, and support our assertion with a survey conducted on 10 images created using a variety of different hyperparameters. Our survey results indicate that there is no human consensus on best image, ie optimal model hyperparameters, as indicated by the variation. Seen here:'''Survey results ..not sure how many images'''
+To establish a baseline, we ran the original configuration of EnlightenGAN capturing the loss function on a visdom server. The loss function in GAN attempts to capture the distance between the distribution of the data generated by the GAN and the distribution of the real data. A GAN has loss function-one for generator training and one for discriminator training. Loss is not necessarily the best measure of model excellence as the two loss functions must be integrated to reflect a distance measure between probability distributions.
 
-Rather than rely on human evaluation, we turned, instead, to Fréchet Inception Distance, among the most accepted quantitative measures of the quality of GAN images. We proceed with the caveat that there is no universally accepted quantitative measure. The correlation to human judgement is "high", but as discussed human intuition is problematic. That said, it is still the best, albeit flawed, measure of GAN quality. We have adopted it for our hyperparameter tuning and model evaluation. FDI is computed the Fréchet distance between two Gaussians fitted to feature representations of the Inception network.
+![](./assets/visdom/visdom_lr_.0001.png)
+
+Our Visdom server displays the two loss functions. To determine the quality of their model, the authors of the original EnlightenGAN paper rely, instead, on human evaluation to determine optimum hyperparameters. We deemed human evaluation an unreliable metric, and support our assertion with a survey conducted on 10 images created using a variety of different hyperparameters. Our survey results indicate that there is no human consensus on best image, ie optimal model hyperparameters, as indicated by the variation. Seen here:
+
+![](./assets/surveys/bird.png)
+![](./assets/surveys/spider_web.png)
+![](./assets/surveys/indoor.png)
+![](./assets/surveys/flower.png)
+![](./assets/surveys/moon_landing.png)
+![](./assets/surveys/man.png)
+![](./assets/surveys/woman.png)
+![](./assets/surveys/cloudy.png)
+![](./assets/surveys/scenery.png)
+![](./assets/surveys/lighthouse.png)
+
+Rather than rely on human evaluation, we turned, instead, to Fréchet Inception Distance, among the most accepted quantitative measures of the quality of GAN images. We proceed with the caveat that there is no universally accepted quantitative measure. The correlation to human judgement is "high", but as discussed human intuition is problematic. That said, it is still the best, albeit flawed, measure of GAN quality. We have adopted it for our hyperparameter tuning and model evaluation. FID is computed the Fréchet distance between two Gaussians fitted to feature representations of the Inception network.
 
 
 6. Hyperparameter Tuning
-Our fine tuning focused on learning rates, epochs and batch size. We conducted 9 different experiments. Based on FID score alone, our fine tuning indicated that that the baseline selected by the authors yielded the best FID score. Human evaluation suggests that GAN evaluation and FID score are not as well correlated as the proponents of FID score as the proponents of the measure would suggest. '''Insert FID Scores here'''
+Our fine tuning focused on learning rates, epochs and batch size. We conducted 9 different experiments. Based on FID score alone, our fine tuning indicated that that the baseline selected by the authors yielded the best FID score. Human evaluation suggests that GAN evaluation and FID score are not as well correlated as the proponents of FID score as the proponents of the measure would suggest.
 
-System setup, training/test data, visdom screenshots, training and fine-tuning process, quality evaluation metrics description, quantitative/qualitative scores comparison table for different hyper-parameters. 
- 
+| Hyperparameters                         | FID Score  |
+|-----------------------------------------|------------|
+| lr = 1e-2  epochs = 200 batch = 32      | 54.364699  |
+| lr = 1e-3  epochs = 200 batch = 32      | 54.591752  |
+| lr = 1e-4  epochs = 200 batch = 32      | 46.975584  |
+| lr = 1e-5  epochs = 200 batch = 32      | 52.309086  |
+| lr = 1e-6  epochs = 200 batch = 32      | 48.2036344 |
+| lr = 1e-4  epochs = 200 batch = 8       | 47.608967  |
+| lr = 1e-4  epochs = 200 batch = 16      | 63.224394  |
+| lr = 1e-4  epochs = 200 batch = 16 tanh | 63.224394  |
+| lr = 1e-4  epochs = 300 batch = 32      | 54.637000  |
 
-Describe any changes you made to the original model's code. To keep our main README high-level, you can provide links to other documents that deal with the setup and changes details (similar to what I've done for Jetson). 
+System setup, training/test data, visdom screenshots, training and fine-tuning process, quality evaluation metrics description, quantitative/qualitative scores comparison table for different hyper-parameters.
+
+
+Describe any changes you made to the original model's code. To keep our main README high-level, you can provide links to other documents that deal with the setup and changes details (similar to what I've done for Jetson).
 
 Please check in your images into the [assets](assets) directory and embed them in this document using the following syntax: `![](/assets/image_filename)`.
 
 Make sure to provide links to the training/test datasets. For example,  
 
-Training data [[Google Drive]](https://drive.google.com/drive/folders/1fwqz8-RnTfxgIIkebFG2Ej3jQFsYECh0?usp=sharing) (unpaired images collected from multiple datasets)
+Training data [[Google Drive]](https://drive.google.com/drive/folders/1bdHoIDW-RTPyFS7OVs2nbfv2Kyh6ZtQX?usp=sharing) (unpaired images collected from multiple datasets)
 
-Testing data [[Google Drive]](https://drive.google.com/open?id=1PrvL8jShZ7zj2IC3fVdDxBY1oJR72iDf) (including LIME, MEF, NPE, VV, DICP)  
+Testing data [[Google Drive]](https://drive.google.com/drive/folders/1PwpYCmMXode07z5r5z2aNfA_JnwKbuSe?usp=sharing) (including LIME, MEF, NPE, VV, DICP)  
 
 Provide a link to the best trained model (shared Google dive?)
 
@@ -115,11 +142,11 @@ To repurpose the EnlightenGAN model for video processing, we modified the DataLo
 
 The detailed description of how to build and run the docker container can be found in [README_Jetson.md](README_Jetson.md), while the animation below demonstrates a sample run of the IllumiGAN application on Jetson TX2:
 
-![](/assets/screen-recording-outdoor.gif)
+![](./assets/screen-recording-outdoor.gif)
 
-Here we can see the print-out of the network configuration within the container shell on the left and the data folder containing an input low-light video in the bottom right. The window in the top right corner shows the input and output video streams displayed side-by-side. 
+Here we can see the print-out of the network configuration within the container shell on the left and the data folder containing an input low-light video in the bottom right. The window in the top right corner shows the input and output video streams displayed side-by-side.
 
-We observed that without any optimization the best inference speed we could achieve on low-resolution videos (e.g., 352x288) was about 5 FPS. 
+We observed that without any optimization the best inference speed we could achieve on low-resolution videos (e.g., 352x288) was about 5 FPS.
 
 To improve the performance, we tried to convert our trained model to TensorRT using NVIDIA's open-source library [Torch2TRT](https://github.com/NVIDIA-AI-IOT/torch2trt), which provides a high-level Python interface for PyTorch-to-TensorRT conversion. Unfortunately, while we were able to convert some state-of-the-art models (i.e., ResNet) to TensorRT successfully, any attempts to apply the library to the EnlightenGAN model resulted in failure. Further details about our experimentation with `torch2trt` converter can be found [here](testtrt).
 
@@ -129,38 +156,38 @@ To test the performance of our model in terms of the output quality, we ran infe
 
 * Royalty-free dataset of [City At Night Stock Video Footage](https://www.videezy.com/free-video/city-at-night)  
 
-* Homemade recordings captured with iPhone 6 and converted to .avi format using a [free online converter](https://www.zamzar.com/convert/mp4-to-avi/). 
+* Homemade recordings captured with iPhone 6 and converted to .avi format using a [free online converter](https://www.zamzar.com/convert/mp4-to-avi/).
 
 These recordings were uploaded to Jetson TX2 and used as an input to our IllimiGAN application.  
 
 Below are a few samples demonstrating how the model performed under different lighting conditions.
 
 
-### **Outdoor (artificial light)** 
+### **Outdoor (artificial light)**
 
 This video is a representative example of an urban night scene, with both brightly-lit and dark areas present in the field of view. Such scenes are particularly challenging for traditional image enhancement algorithms since they struggle to brighten the dark areas without introducing distortions to the well-lit regions.  
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output  
-![](/assets/taxi-768-inference.gif)  
+![](./assets/taxi-768-inference.gif)  
 
 As we can see from the side-by-side videos, the input video has a brightly-lit spot at its center while the rest of the objects and the people in front of the building fade into darkness. On the other hand, the video on the right shows as a uniformly-lit scene where colors and details are restored with high fidelity.
 
 ### **Outdoor (low-light)**  
 
-The following two samples demonstrate the model's performance under very challenging conditions where the input scene is mostly dark with some occasional bright spots due to artificial lighting. 
+The following two samples demonstrate the model's performance under very challenging conditions where the input scene is mostly dark with some occasional bright spots due to artificial lighting.
 
 The first sample is a nighttime scene in Chicago where the only sources of illumination are distant building lights and occasional blinking bike lights from passing bikers.   
 While none of the objects or people can be easily detected in the input video (the bikers' presence is only evident by moving shadows), the output video clearly shows the buildings, the fence, the red-and-white construction pole, as well as the two groups of bikers moving in opposite directions. We can even discern the color of their clothes and the shapes of backpacks they're wearing.    
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output
-![](/assets/chicago-768-inference.gif)  
+![](./assets/chicago-768-inference.gif)  
 
 <br/><br/>
 The next video shows our teammate's backyard captured at nighttime. Similar to the Chicago scene above, the original video looks completely dark with some occasional bright spots due to ambient lighting.  
 The output video, on the other hand, managed to faithfully recreate the flowers, grass and leaves, as well as the stone structures in the yard. The model sometimes struggles, however, with enhancement of extremely dark areas.  
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output  
-![](/assets/outdoor-infer.gif)
+![](./assets/outdoor-infer.gif)
 
 
 
@@ -170,7 +197,7 @@ The original video was shot inside our teammate's house during nighttime. It eve
 While the recreated video is very noisy, from the daylight reference image we can infer that the model was able to recontruct the hallway layout along with the content of the painting.   
 
 Input &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;Output&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Daylight Reference  
-![](/assets/mysterious-hallway-inference.gif)![](./assets/hallway_daylight.jpg)
+![](./assets/mysterious-hallway-inference.gif)![](./assets/hallway_daylight.jpg)
 
 ## Conclusion & Future Developments  
 

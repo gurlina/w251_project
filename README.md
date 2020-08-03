@@ -221,3 +221,6 @@ Furthermore, training could always be further enhanced by additional in-domain t
 * **Visdom**: A flexible tool for creating, organizing, and sharing visualizations of live, rich data. https://github.com/facebookresearch/visdom
 
 * **NVIDIA PyTorch to TensorRT Converter**: https://github.com/NVIDIA-AI-IOT/torch2trt
+
+## Link to Slide Presentation
+[Link to Google Slides](https://docs.google.com/presentation/d/12oYou94CZlgLH9lBoLocZ74WaNtK_ns3_fRwtMdV4nU/edit?usp=sharing)

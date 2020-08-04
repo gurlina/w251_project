@@ -126,6 +126,10 @@ Our fine tuning focused on learning rates, epochs and batch size. We conducted n
 System setup, training/test data, visdom screenshots, training and fine-tuning process, quality evaluation metrics description, quantitative/qualitative scores comparison table for different hyper-parameters.
 
 
+### Dataset
+
+Our dataset was the same dataset used by the EnlightenGAN authors and linked below for reference. Further investigations could augment the dataset using images from security cameras to fit our desired application. However we achieved fairly realistic images with the dataset provided, so it was not prioritized for this study.  
+
 Training data [[Google Drive]](https://drive.google.com/drive/folders/1bdHoIDW-RTPyFS7OVs2nbfv2Kyh6ZtQX?usp=sharing) (unpaired images collected from multiple datasets)
 
 Testing data [[Google Drive]](https://drive.google.com/drive/folders/1PwpYCmMXode07z5r5z2aNfA_JnwKbuSe?usp=sharing) (including LIME, MEF, NPE, VV, DICP)  

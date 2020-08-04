@@ -92,6 +92,8 @@ adopted a similar approach conducting a survey for human subjective evaluation b
 
 For human subjective evaluation we conducted a survey using 10 different images and asking participants to select the best images from nine different generated possibilities. Our findings indicate that human evaluation is suspicious, an unreliable metric, characterized by considerable variation as depicted below.
 
+Note, the FID score was not factored into the loss function while training the EnlightenGAN architecture. Rather, it was run during the validation step to determine the quality of the output.  
+
 ![](./assets/surveys/bird.png)
 ![](./assets/surveys/spider_web.png)
 ![](./assets/surveys/indoor.png)

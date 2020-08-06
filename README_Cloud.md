@@ -109,7 +109,7 @@ chmod +x split_real_fake.sh
 ```
 > Note: <br>`chmod` is ran when `split_real_fake.sh` is not executable.
 <br>argument -f: 'from' folder where ablation is located.
-<br>&emsp;&emsp;&emsp;&emsp;-t: 'to' folder where split folder is desired.
+<br>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;-t: 'to' folder where split folder is desired.
 
 3. Run the `fid-score` to compute the FID score.
 

@@ -229,6 +229,8 @@ Furthermore, training could always be further enhanced by additional in-domain t
 
 * [3] Jinjin Gu, Haoming Cai, Haoyu Chen, Xiaoxing Ye, Jimmy S. Ren, and Chao Dong. **PIPAL: a Large-Scale Image Quality Assessment Dataset for Perceptual Image Restoration.** 2020. https://arxiv.org/abs/2007.12142v1
 
+* [4] Terrance DeVries, Adriana Romero, Luis Pineda, Graham W. Taylor, and Michal Drozdzal. **On the Evaluation of Conditional GANS.** 2019. https://arxiv.org/pdf/1907.08175.pdf
+
 * **ImageJ**: An open platform for scientific image analysis. https://imagej.net  
 
 * **Video Converter**: https://www.onlineconverter.com  

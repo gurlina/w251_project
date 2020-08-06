@@ -130,7 +130,7 @@ Our fine tuning focused on learning rates, epochs and batch size. We conducted n
 | lr = 1e-4  epochs = 200 batch = 16 tanh | 63.224394  |[View](./assets/visdom/loss_batch_16_tanh.png)|
 | lr = 1e-4  epochs = 300 batch = 32      | 54.637000  |[View](./assets/visdom/loss_epochs_300.png)   |
 
-Our detailed implementation of the Cloud setup including the model train, model validation hyperparameters tuning, and FID score calculation process can be found in [README_Cloud](README_Cloud.md).
+Our detailed implementation of the Cloud setup including the model train, model validation, hyperparameters tuning, and FID score calculation process can be found in [README_Cloud](README_Cloud.md).
 
 ### Datasets
 

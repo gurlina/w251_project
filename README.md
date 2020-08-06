@@ -118,17 +118,17 @@ Note, the FID score was not factored into the loss function while training the E
 
 Our fine tuning focused on learning rates, epochs and batch size. We conducted nine different experiments. Based on FID score alone, our fine tuning indicated that that the baseline selected by the authors yielded the best FID score. Human evaluation suggests that GAN evaluation and FID score are not as well correlated as the proponents of FID score would suggest.
 
-| Hyperparameters                         | FID Score  | Visdom Output |
-|-----------------------------------------|------------|---------------|
-| lr = 1e-2  epochs = 200 batch = 32      | 54.364699  |[View here](./assets/visdom/loss_lr_.01.png)|
-| lr = 1e-3  epochs = 200 batch = 32      | 54.591752  |               |
-| **lr = 1e-4  epochs = 200 batch = 32**  | **46.975584**  |           |
-| lr = 1e-5  epochs = 200 batch = 32      | 52.309086  |               |
-| lr = 1e-6  epochs = 200 batch = 32      | 48.2036344 |               |
-| lr = 1e-4  epochs = 200 batch = 8       | 47.608967  |               |
-| lr = 1e-4  epochs = 200 batch = 16      | 63.224394  |               |
-| lr = 1e-4  epochs = 200 batch = 16 tanh | 63.224394  |               |
-| lr = 1e-4  epochs = 300 batch = 32      | 54.637000  |               |
+| Hyperparameters                         | FID Score  | Visdom Output                                |
+|-----------------------------------------|------------|----------------------------------------------|
+| lr = 1e-2  epochs = 200 batch = 32      | 54.364699  |[View](./assets/visdom/loss_lr_.01.png)       |
+| lr = 1e-3  epochs = 200 batch = 32      | 54.591752  |[View](./assets/visdom/loss_lr_.001.png)      |
+| **lr = 1e-4  epochs = 200 batch = 32**  | **46.975584**  |[View](./assets/visdom/loss_lr_.0001.png) |
+| lr = 1e-5  epochs = 200 batch = 32      | 52.309086  |[View](./assets/visdom/loss_lr_.00001.png)    |
+| lr = 1e-6  epochs = 200 batch = 32      | 48.2036344 |[View](./assets/visdom/loss_lr_.000001.png)   |
+| lr = 1e-4  epochs = 200 batch = 8       | 47.608967  |[View](./assets/visdom/loss_batch_8.png)      |
+| lr = 1e-4  epochs = 200 batch = 16      | 63.224394  |[View](./assets/visdom/loss_batch_16.png)     |
+| lr = 1e-4  epochs = 200 batch = 16 tanh | 63.224394  |[View](./assets/visdom/loss_batch_16_tanh.png)|
+| lr = 1e-4  epochs = 300 batch = 32      | 54.637000  |[View](./assets/visdom/loss_epochs_300.png)   |
 
 Our detailed implementation of the Cloud setup including the model train, model validation hyperparameters tuning, and FID score calculation process can be found in [README_Cloud](README_Cloud.md).
 

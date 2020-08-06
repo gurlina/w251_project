@@ -120,7 +120,7 @@ Our fine tuning focused on learning rates, epochs and batch size. We conducted n
 
 | Hyperparameters                         | FID Score  | Visdom Output |
 |-----------------------------------------|------------|---------------|
-| lr = 1e-2  epochs = 200 batch = 32      | 54.364699  |[View here](./assets/visdom/loss_lr_.01)|
+| lr = 1e-2  epochs = 200 batch = 32      | 54.364699  |[View here](./assets/visdom/loss_lr_.01.png)|
 | lr = 1e-3  epochs = 200 batch = 32      | 54.591752  |               |
 | **lr = 1e-4  epochs = 200 batch = 32**  | **46.975584**  |           |
 | lr = 1e-5  epochs = 200 batch = 32      | 52.309086  |               |

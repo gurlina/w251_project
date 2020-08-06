@@ -87,7 +87,7 @@ python3 scripts/script.py --predict
 - `<project_root>/w251_project/options/train_options.py`
 - `<project_root>/w251_project/options/test_options.py`
 
-2. All the hyperparameters tuning should be done at `script.py` by adding respective parameters that are desired to fine-tune referring to `train_options.py`, `test_options.py` and `base_options.py`.
+2. All the hyperparameters tuning should be done at `script.py` by adding or modifying respective parameters that are desired to fine-tune referring to `train_options.py`, `test_options.py` and `base_options.py`.
 
 3. Re-run the train process.
 

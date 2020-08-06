@@ -1,6 +1,6 @@
 # Model train and validation in IBM Cloud
 
-Diagram below depicts the setup and the flow of the model and inference process for the application.
+Diagram below depicts the setup and the flow of the model train and validation process for the application.
 
 ![](./assets/cloud_setup_final.png)
 

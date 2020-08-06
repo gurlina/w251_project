@@ -4,7 +4,7 @@ Diagram below depicts the setup and the flow of the model and inference process 
 
 ![](./assets/cloud_setup_final.png)
 
-The model was trained on 2 Ubuntu 16.04 VMs of x P100 GPUs with CUDA 11.0.207 for redundancy purpose so that two different trainings could be performed concurrently and independently.
+The model was trained on 2 Ubuntu 16.04 VMs with 2 x P100 GPUs and CUDA 11.0.207 for redundancy purpose so that two different trainings could be performed concurrently and independently.
 
 ## Environment prerequisite(s)
 
@@ -18,7 +18,7 @@ Items below are required to run the application.
 - dominate
 
 Install python and pip as the initial steps followed by executing below commands.
-> Note: <br>If `w251_project` folder is modified once it is cloned then modify all below steps accordingly.
+> Note: <br>If `w251_project` folder is renamed after being cloned then use that new folder name accordingly to all the steps below.
 
 ```
 cd <project_root>/w251_project
@@ -48,8 +48,8 @@ mkdir -p <project_root>/w251_project/checkpoints/enlightening
 3. Download the test data from [here](https://drive.google.com/drive/folders/1PwpYCmMXode07z5r5z2aNfA_JnwKbuSe?usp=sharing). It contains two folders `testA` and `testB` and copy both of the folders to `test_dataset` folder.
 > Note: <br>Extract `testA` and `testB` respectively if they are in compressed format.
 
-4. Download the [pre-trained model](https://drive.google.com/file/d/1AkV-n2MdyfuZTFvcon8Z4leyVb0i7x63/view?usp=sharing) and copy that to the `model` library.
-
+4. Download the [vgg pre-trained model](https://drive.google.com/file/d/1AkV-n2MdyfuZTFvcon8Z4leyVb0i7x63/view?usp=sharing) and copy that to the `model` library.
+> Note: <br>Extract the pre-trained model if it is in compressed format.
 
 ## Model train
 
@@ -67,7 +67,7 @@ nohup python3 scripts/script.py --train &
 
 ## Model validation
 
-1. The trained model will be saved on `<project_root>/w251_project/checkpoints/enlightening`. Alternatively, download the [pre-trained model](https://drive.google.com/drive/folders/1MeHOhhT0O2NDz6YL5nSn-elK-Oih2Oso?usp=sharing) and copy that to `checkpoints/enlightening` folder.
+1. The trained model will be saved on `<project_root>/w251_project/checkpoints/enlightening`. Alternatively, download the [illuminGAN pre-trained model](https://drive.google.com/drive/folders/1MeHOhhT0O2NDz6YL5nSn-elK-Oih2Oso?usp=sharing) and copy that to `checkpoints/enlightening` folder.
 > Note: <br>Extract the pre-trained model if it is in compressed format.
 
 2. Start the validation process
